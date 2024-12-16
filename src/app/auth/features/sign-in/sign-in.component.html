@@ -1,0 +1,83 @@
+<div class="login-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{
+        appConstants.UI_ELEMENTS.AUTH.LOGIN.TITLE
+      }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="social-login">
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="submitWithGoogle()"
+          class="google-button"
+        >
+          <mat-icon class="google-icon">login</mat-icon>
+          {{ appConstants.UI_ELEMENTS.AUTH.LOGIN.GOOGLE_BUTTON_TEXT }}
+        </button>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill">
+          <mat-label>{{
+            appConstants.UI_ELEMENTS.AUTH.LOGIN.EMAIL_LABEL
+          }}</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="name@company.com"
+            autocomplete="email"
+          />
+          <mat-error *ngIf="isRequired('email')">
+            {{ appConstants.UI_ELEMENTS.AUTH.ERRORS.REQUIRED_FIELD }}
+          </mat-error>
+          <mat-error *ngIf="hasEmailError()">
+            {{ appConstants.UI_ELEMENTS.AUTH.ERRORS.INVALID_EMAIL }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{
+            appConstants.UI_ELEMENTS.AUTH.LOGIN.PASSWORD_LABEL
+          }}</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="••••••••"
+            autocomplete="new-password"
+          />
+          <mat-error *ngIf="isRequired('password')">
+            {{ appConstants.UI_ELEMENTS.AUTH.ERRORS.REQUIRED_FIELD }}
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          {{ appConstants.UI_ELEMENTS.AUTH.LOGIN.SUBMIT_BUTTON_TEXT }}
+        </button>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <p>
+        {{ appConstants.UI_ELEMENTS.AUTH.LOGIN.NO_ACCOUNT_TEXT }}
+        <a
+          routerLink="/auth/sign-up"
+          [attr.aria-label]="
+            appConstants.UI_ELEMENTS.TOOLBAR.NEW_USER_BUTTON_ARIA_LABEL
+          "
+        >
+          {{ appConstants.UI_ELEMENTS.AUTH.LOGIN.CREATE_ACCOUNT_LINK_TEXT }}
+        </a>
+      </p>
+    </mat-card-actions>
+  </mat-card>
+</div>

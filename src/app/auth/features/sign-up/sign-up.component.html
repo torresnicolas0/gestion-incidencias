@@ -1,0 +1,86 @@
+<div class="signup-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{
+        appConstants.UI_ELEMENTS.AUTH.SIGNUP.TITLE
+      }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="social-signup">
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="submitWithGoogle()"
+          class="google-button"
+        >
+          <mat-icon class="google-icon">login</mat-icon>
+          {{ appConstants.UI_ELEMENTS.AUTH.SIGNUP.GOOGLE_BUTTON_TEXT }}
+        </button>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill">
+          <mat-label>{{
+            appConstants.UI_ELEMENTS.AUTH.SIGNUP.EMAIL_LABEL
+          }}</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            formControlName="email"
+            placeholder="name@company.com"
+            autocomplete="email"
+          />
+          <mat-error *ngIf="isRequired('email')">
+            {{ appConstants.UI_ELEMENTS.AUTH.ERRORS.REQUIRED_FIELD }}
+          </mat-error>
+          <mat-error *ngIf="hasEmailError()">
+            {{ appConstants.UI_ELEMENTS.AUTH.ERRORS.INVALID_EMAIL }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{
+            appConstants.UI_ELEMENTS.AUTH.SIGNUP.PASSWORD_LABEL
+          }}</mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            formControlName="password"
+            placeholder="••••••••"
+            autocomplete="new-password"
+          />
+          <mat-error *ngIf="isRequired('password')">
+            {{ appConstants.UI_ELEMENTS.AUTH.ERRORS.REQUIRED_FIELD }}
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          {{ appConstants.UI_ELEMENTS.AUTH.SIGNUP.SUBMIT_BUTTON_TEXT }}
+        </button>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <p>
+        {{ appConstants.UI_ELEMENTS.AUTH.SIGNUP.ALREADY_HAVE_ACCOUNT_TEXT }}
+        <a
+          routerLink="/auth/sign-in"
+          class="signin-link"
+          [attr.aria-label]="
+            appConstants.UI_ELEMENTS.TOOLBAR.USERS_LINK_ARIA_LABEL
+          "
+        >
+          {{ appConstants.UI_ELEMENTS.AUTH.SIGNUP.SIGNIN_LINK_TEXT }}
+        </a>
+      </p>
+    </mat-card-actions>
+  </mat-card>
+</div>
