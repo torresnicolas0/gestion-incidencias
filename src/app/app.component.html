@@ -1,7 +1,10 @@
 <section>
   <mat-card>
     <mat-card-content>
-      <app-toolbar (newIncidentEvent)="onClickNewIncident()"></app-toolbar>
+      <app-toolbar
+        (newUserEvent)="onClickNewUser()"
+        (newIncidentEvent)="onClickNewIncident()"
+      ></app-toolbar>
       <router-outlet />
     </mat-card-content>
   </mat-card>

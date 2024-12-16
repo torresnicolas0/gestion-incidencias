@@ -16,9 +16,13 @@ export const routes: Routes = [
   },
   {
     canActivateChild: [privateGuard()],
+    path: "users",
+    loadChildren: () => import("./features/users/users.routes"),
+  },
+  {
+    canActivateChild: [privateGuard()],
     path: "incidents",
     loadChildren: () => import("./features/incidents/incidents.routes"),
-
   },
   { path: "**", redirectTo: "/home" },
 ];

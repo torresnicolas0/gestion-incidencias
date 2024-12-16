@@ -25,8 +25,9 @@ export class ToolbarComponent implements OnInit {
     return APP_CONSTANTS;
   }
 
+  @Output() newUserEvent = new EventEmitter<void>();
   @Output() newIncidentEvent = new EventEmitter<void>();
-  
+
   ngOnInit(): void {
     this.router.events.subscribe(() => {
       this.currentRoute = this.router.url;
@@ -37,6 +38,9 @@ export class ToolbarComponent implements OnInit {
   }
 
   emitClick(type: string): void {
+    if (type === 'user') {
+      this.newUserEvent.emit();
+    }
     if (type === 'incident') {
       this.newIncidentEvent.emit();
     }

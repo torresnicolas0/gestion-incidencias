@@ -11,6 +11,15 @@
   <ng-container *ngIf="isAuthenticated">
     <a
       mat-button
+      routerLink="/users"
+      [attr.aria-label]="appConstants.UI_ELEMENTS.TOOLBAR.USERS_LINK_ARIA_LABEL"
+    >
+      <mat-icon>list_alt</mat-icon>
+      <span>{{ appConstants.UI_ELEMENTS.TOOLBAR.USERS_LINK_TEXT }}</span>
+    </a>
+
+    <a
+      mat-button
       routerLink="/incidents"
       [attr.aria-label]="
         appConstants.UI_ELEMENTS.TOOLBAR.INCIDENTS_LINK_ARIA_LABEL
@@ -37,14 +46,25 @@
       </button>
     </ng-container>
 
-    <!-- Botón para cerrar sesión -->
+    <ng-container *ngIf="currentRoute === '/users'">
+      <button
+        mat-button
+        (click)="emitClick('user')"
+        [attr.aria-label]="
+          appConstants.UI_ELEMENTS.TOOLBAR.NEW_USER_BUTTON_ARIA_LABEL
+        "
+      >
+        <mat-icon>add_box</mat-icon>
+        <span>{{ appConstants.UI_ELEMENTS.TOOLBAR.NEW_USER_BUTTON_TEXT }}</span>
+      </button>
+    </ng-container>
+
     <button mat-button (click)="logOut()" aria-label="Cerrar sesión">
       <mat-icon>logout</mat-icon>
       <span>Cerrar Sesión</span>
     </button>
   </ng-container>
 
-  <!-- Botón de inicio de sesión cuando no hay sesión activa -->
   <ng-container *ngIf="!isAuthenticated">
     <span class="spacer"></span>
     <button mat-button routerLink="/auth/sign-in" aria-label="Iniciar sesión">

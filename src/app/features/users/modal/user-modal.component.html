@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{ getTitle() }}</h1>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label> Name </mat-label>
+      <input matInput type="text" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> Email </mat-label>
+      <input matInput type="text" formControlName="email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="Suscriptor">Suscriptor</mat-option>
+        <mat-option value="User">User</mat-option>
+        <mat-option value="Admin">Admin</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div mat-dialog-actions class="action">
+      <button
+        mat-raised-button
+        [mat-dialog-close]
+        type="button"
+        aria-label="{{ appConstants.UI_ELEMENTS.MODAL.BTN_CANCEL }}"
+      >
+        {{ appConstants.UI_ELEMENTS.MODAL.BTN_CANCEL }}
+      </button>
+      <button
+        [disabled]="!userForm.valid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [attr.aria-label]="getBtn()"
+      >
+        {{ getBtn() }}
+      </button>
+    </div>
+  </div>
+</form>
