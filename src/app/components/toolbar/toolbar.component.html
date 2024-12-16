@@ -9,14 +9,42 @@
   </a>
 
   <ng-container *ngIf="isAuthenticated">
+    <a
+      mat-button
+      routerLink="/incidents"
+      [attr.aria-label]="
+        appConstants.UI_ELEMENTS.TOOLBAR.INCIDENTS_LINK_ARIA_LABEL
+      "
+    >
+      <mat-icon>report</mat-icon>
+      <span>{{ appConstants.UI_ELEMENTS.TOOLBAR.INCIDENTS_LINK_TEXT }}</span>
+    </a>
+
     <span class="spacer"></span>
 
+    <ng-container *ngIf="currentRoute === '/incidents'">
+      <button
+        mat-button
+        (click)="emitClick('incident')"
+        [attr.aria-label]="
+          appConstants.UI_ELEMENTS.TOOLBAR.NEW_INCIDENT_BUTTON_ARIA_LABEL
+        "
+      >
+        <mat-icon>add_box</mat-icon>
+        <span>{{
+          appConstants.UI_ELEMENTS.TOOLBAR.NEW_INCIDENT_BUTTON_TEXT
+        }}</span>
+      </button>
+    </ng-container>
+
+    <!-- Botón para cerrar sesión -->
     <button mat-button (click)="logOut()" aria-label="Cerrar sesión">
       <mat-icon>logout</mat-icon>
       <span>Cerrar Sesión</span>
     </button>
   </ng-container>
 
+  <!-- Botón de inicio de sesión cuando no hay sesión activa -->
   <ng-container *ngIf="!isAuthenticated">
     <span class="spacer"></span>
     <button mat-button routerLink="/auth/sign-in" aria-label="Iniciar sesión">

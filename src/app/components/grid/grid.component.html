@@ -1,0 +1,60 @@
+<section class="mt-1">
+  <app-filter
+    [label]="appConstants.UI_ELEMENTS.FILTER_LABEL"
+    [placeholder]="appConstants.UI_ELEMENTS.FILTER_PLACEHOLDER"
+    [(filter)]="valueToFilter"
+  />
+  <div class="mat-elevation-z8">
+    <table mat-table matSort [dataSource]="dataSource">
+      @for (column of displayedColumns(); track $index) {
+      <ng-container [matColumnDef]="column">
+        @if (this.sortableColumns().includes(column)) {
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+        } @else {
+        <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+        }
+
+        <td mat-cell *matCellDef="let element">
+          {{ element[column] }}
+          @if (column==='action') { @if (element.type==='incident') {
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openItem(element, element.type)"
+            [attr.aria-label]="appConstants.UI_ELEMENTS.TABLE.BTN_VIEW"
+          >
+            <mat-icon>visibility</mat-icon>
+          </button>
+          }
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openEditForm(element, element.type)"
+            [attr.aria-label]="appConstants.UI_ELEMENTS.TABLE.BTN_EDIT"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteItem(element.id, element.type)"
+            [attr.aria-label]="appConstants.UI_ELEMENTS.TABLE.BTN_DELETE"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          }
+        </td>
+      </ng-container>
+      }
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      [attr.aria-label]="appConstants.UI_ELEMENTS.TABLE.PAGINATOR_LABEL"
+    >
+    </mat-paginator>
+  </div>
+</section>

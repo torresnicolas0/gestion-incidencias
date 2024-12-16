@@ -1,0 +1,89 @@
+<h1 mat-dialog-title>{{ getTitle() }}</h1>
+<form [formGroup]="incidentForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" *ngIf="isEditing; else titleView">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" formControlName="title" />
+    </mat-form-field>
+    <ng-template #titleView>
+      <p><strong>Title:</strong> {{ incidentForm.get("title")?.value }}</p>
+    </ng-template>
+    <mat-form-field
+      appearance="outline"
+      *ngIf="isEditing; else descriptionView"
+    >
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+    <ng-template #descriptionView>
+      <p>
+        <strong>Description:</strong>
+        {{ incidentForm.get("description")?.value }}
+      </p>
+    </ng-template>
+    <mat-form-field appearance="outline" *ngIf="isEditing; else priorityView">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option value="Baja">Baja</mat-option>
+        <mat-option value="Media">Media</mat-option>
+        <mat-option value="Alta">Alta</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <ng-template #priorityView>
+      <p>
+        <strong>Priority:</strong> {{ incidentForm.get("priority")?.value }}
+      </p>
+    </ng-template>
+    <mat-form-field appearance="outline" *ngIf="isEditing; else statusView">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="Abierta">Abierta</mat-option>
+        <mat-option value="En Progreso">En Progreso</mat-option>
+        <mat-option value="Cerrada">Cerrada</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <ng-template #statusView>
+      <p><strong>Status:</strong> {{ incidentForm.get("status")?.value }}</p>
+    </ng-template>
+    <mat-form-field appearance="outline" *ngIf="isEditing; else assignedToView">
+      <mat-label>Assigned To</mat-label>
+      <input matInput type="text" formControlName="assignedTo" />
+    </mat-form-field>
+    <ng-template #assignedToView>
+      <p>
+        <strong>Assigned To:</strong>
+        {{ incidentForm.get("assignedTo")?.value }}
+      </p>
+    </ng-template>
+    <mat-form-field appearance="outline" *ngIf="isEditing; else createdByView">
+      <mat-label>Created By</mat-label>
+      <input matInput type="text" formControlName="createdBy" />
+    </mat-form-field>
+    <ng-template #createdByView>
+      <p>
+        <strong>Created By:</strong>
+        {{ incidentForm.get("createdBy")?.value }}
+      </p>
+    </ng-template>
+    <div mat-dialog-actions class="action">
+      <button
+        mat-raised-button
+        [mat-dialog-close]
+        type="button"
+        aria-label="{{ appConstants.UI_ELEMENTS.MODAL.BTN_CANCEL }}"
+      >
+        {{ appConstants.UI_ELEMENTS.MODAL.BTN_CANCEL }}
+      </button>
+      <button
+        *ngIf="isEditing"
+        [disabled]="!incidentForm.valid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [attr.aria-label]="getBtn()"
+      >
+        {{ getBtn() }}
+      </button>
+    </div>
+  </div>
+</form>

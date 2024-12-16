@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -13,8 +13,7 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule, MatToolbarModule, Rout
   selector: 'app-toolbar',
   standalone: true,
   imports: [MATERIAL_MODULES],
-  templateUrl: './toolbar.component.html',
-  styleUrl: './toolbar.component.scss'
+  templateUrl: './toolbar.component.html'
 })
 export class ToolbarComponent implements OnInit {
   private router = inject(Router);
@@ -26,6 +25,8 @@ export class ToolbarComponent implements OnInit {
     return APP_CONSTANTS;
   }
 
+  @Output() newIncidentEvent = new EventEmitter<void>();
+  
   ngOnInit(): void {
     this.router.events.subscribe(() => {
       this.currentRoute = this.router.url;
@@ -33,6 +34,12 @@ export class ToolbarComponent implements OnInit {
     this.authStateService.authState$.subscribe(user => {
       this.isAuthenticated = !!user;
     });  
+  }
+
+  emitClick(type: string): void {
+    if (type === 'incident') {
+      this.newIncidentEvent.emit();
+    }
   }
 
   async logOut(): Promise<void> {
