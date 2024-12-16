@@ -7,4 +7,21 @@
     <mat-icon>home</mat-icon>
     <span>{{ appConstants.UI_ELEMENTS.TOOLBAR.HOME_LINK_TEXT }}</span>
   </a>
+
+  <ng-container *ngIf="isAuthenticated">
+    <span class="spacer"></span>
+
+    <button mat-button (click)="logOut()" aria-label="Cerrar sesión">
+      <mat-icon>logout</mat-icon>
+      <span>Cerrar Sesión</span>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="!isAuthenticated">
+    <span class="spacer"></span>
+    <button mat-button routerLink="/auth/sign-in" aria-label="Iniciar sesión">
+      <mat-icon>login</mat-icon>
+      <span>Iniciar Sesión</span>
+    </button>
+  </ng-container>
 </mat-toolbar>
